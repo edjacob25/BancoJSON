@@ -1,3 +1,4 @@
+package modelBanco;
 
 import java.io.*;
 import java.util.StringTokenizer;
@@ -25,7 +26,7 @@ public class ClienteAD
 			
 			//MySql
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			conexion = DriverManager.getConnection("jdbc:mysql://localhost/","letmein","letmein");
+			conexion = DriverManager.getConnection("jdbc:mysql://localhost/","myself","myself");
 			System.out.println("nice");
 		}
 		catch(ClassNotFoundException cfe)
