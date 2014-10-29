@@ -5,5 +5,7 @@
 <jsp:setProperty name = 'bancoad' property ='*' />
 
 <%
-	out.println(bancoad.consultarDatos());
+	if((request.getParameter("bCrear")==null)&&(request.getParameter("bConsultaGeneral")==null)&&(request.getParameter("bConsultaNocta")==null)&&(request.getParameter("bConsultarTipo")==null)&&(request.getParameter("bRetiro")==null)&&(request.getParameter("bDeposito")==null))
+	{
+	}
 %>
