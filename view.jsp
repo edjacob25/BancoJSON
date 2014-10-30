@@ -4,7 +4,7 @@
 <html lang ='es'>
 	<head>
 		<script src="js.js"></script>
-		<title>Banco</title>
+		<title>Clientazo</title>
 	</head>
 
 	<body>
@@ -23,8 +23,10 @@
 				Tipo de Cuenta: 
 				<select id='tipo'>
 					<option value='' selected>Selecciona</option>
-					<option value='debito'>Débito</option>
-					<option value='credito'>Crédito</option>
+					<option value='AHORRO'>Ahorro</option>
+					<option value='CREDITO'>Crédito</option>
+					<option value='HIPOTECA'>Hipoteca</option>
+					<option value='INVERSION'>Inversión</option>
 				</select><br>
 				Saldo: <input type='text' id= 'saldo' value=''><br>
 				<br>
@@ -32,8 +34,7 @@
 				<input type='button' id= 'consultaGeneral' value='Consulta General' onclick="consultarGeneral()">
 				<input type='button' id= 'consultaNocta' value='Consulta por número' onclick="consultarNocta()">
 				<input type='button' id= 'consultaTipo' value='Consulta por Tipo' onclick="consultarTipo()">
-				<input type='button' id= 'retiro' value='Retirar' onclick="retirar()">
-				<input type='button' id= 'deposito' value='Depositar' onclick="depositar()">
+				
 		</section>
 
 		<div id="resultado">

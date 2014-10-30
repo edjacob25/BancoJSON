@@ -70,7 +70,7 @@ public class ClienteAD
 			// 3. Cerrar el	archivo
 			statement.close();
 
-			resultado = "Nuevo saldo: \n"+saldo;
+			resultado = "Nuevo saldo: "+saldo;
 		}
 		catch(SQLException ioe)
 		{
@@ -109,7 +109,7 @@ public class ClienteAD
 				// 3. Cerrar el	archivo
 				statement.close();
 
-				resultado = "Nuevo saldo: \n"+saldo;
+				resultado = "Nuevo saldo: "+saldo;
 			}
 			catch(SQLException ioe)
 			{
@@ -242,7 +242,7 @@ public class ClienteAD
 			statement.close();
 			
 
-			resultado = "Datos actualizados: \n"+datos;
+			resultado = "El saldo se ha actualizado correctamente";
 		}
 		catch(SQLException ioe)
 		{

@@ -47,6 +47,51 @@ function obtenerDatos()
   	  document.getElementById("resultado").innerHTML="<i>"+"Obteniendo datos..."+"</i>";
 }
 
+function obtenerDatosDireccionado()
+{	  		
+  if(xhr.readyState==4) // && xhr.status==200)
+  {
+		var datosJSon = eval("("+xhr.responseText+")");
+		var nocta = "", nombre = "", tipo = "", saldo = "", datos="";
+
+     	var html="";
+     	if (datosJSon[0].nocta != undefined) {
+	      	html = html + "<table border='1px'>";
+	      	for(var i=0; i<datosJSon.length; i++)
+	      	{
+	      		nocta = datosJSon[i].nocta;
+	      		nombre = datosJSon[i].nombre;
+	      		tipo = datosJSon[i].tipo;
+	      		saldo = datosJSon[i].saldo;
+
+	      		datos = "datos="+nocta+"_"+nombre+"_"+tipo+"_"+saldo;
+	
+
+	          	html = html + "<tr>";
+	          		html = html + "<td><a href='controller.jsp?ModificarSaldoView=true&"+datos+"'>"+nocta+"</a></td>";
+	          		html = html + "<td>"+nombre+"</td>";
+	          		html = html + "<td>"+tipo+"</td>";
+	          		html = html + "<td>"+saldo+"</td>";
+	          		html = html + "<td><input type='button' id= 'retiro' value='Retirar' onclick=retirar('"+nocta+"','"+nombre+"','"+tipo+"','"+saldo+"')></td>";
+	          		html = html + "<td><input type='button' id= 'deposito' value='Depositar' onclick=depositar('"+nocta+"','"+nombre+"','"+tipo+"','"+saldo+"')></td>";
+	          		
+				
+	          	html = html + "</tr>";
+	        }
+        	html = html + "</table>";
+        	html = html + "<div id='campo'></div>"
+    	}
+    	else{
+    		html= datosJSon[0].message;
+    	}
+      
+
+      document.getElementById("resultado").innerHTML="<i>"+html+"</i>";
+  }
+  else
+  	  document.getElementById("resultado").innerHTML="<i>"+"Obteniendo datos..."+"</i>";
+}
+
 function capturarDatos(op)
 {
   		var datos="";
@@ -94,6 +139,7 @@ function capturarDatos(op)
 	  					document.getElementById("resultado").innerHTML="Hay un error en el tipo de cuenta";
 	  				}
 	  			}
+	  			
   		
   		return datos;
 }
@@ -143,7 +189,7 @@ function capturarDatos(op)
 		/*--- Comienza Consulta por número de cuenta ---*/
 		function establecerConexionConsultaNocta(datos)
 		{
-			xhr.onreadystatechange=obtenerDatos;
+			xhr.onreadystatechange=obtenerDatosDireccionado;
 		    xhr.open("GET","controller.jsp?bConsultarNocta=true&"+datos,true);
 		    xhr.send(null);
 		}
@@ -172,4 +218,52 @@ function capturarDatos(op)
 			var datos = capturarDatos("tipo");
 			if (datos!="")
 				establecerConexionConsultaTipo(datos);
+		}
+
+
+/*--- Comienza el JavaScript del Segundo View ----*/
+
+		function establecerConexionActualizarSaldo(datos)
+		{
+			xhr.onreadystatechange=obtenerDatos;
+		    xhr.open("GET","controller.jsp?bActualizarSaldoAction=true&"+datos,true);
+		    xhr.send(null);
+		}
+
+		function actualizarSaldo()
+		{
+			iniciarObjetoXmlHttpRequest();
+			var datos = capturarDatos("todos");
+			establecerConexionActualizarSaldo(datos);
+		}
+
+		function regresar()
+		{
+			window.location.assign("view.jsp");
+		}
+
+		function retirar(nocta, nombre, tipo, saldo)
+		{
+
+			document.getElementById("campo").innerHTML="<span>Cantidad: </span><input type='number' id='RETIRO'><input type='button' id='bRetirar' value='Retirar' onclick= RetirarDB('"+nocta+"')>";
+		}
+
+		function depositar(nocta, nombre, tipo, saldo)
+		{
+			document.getElementById("campo").innerHTML="<span>Cantidad: </span><input type='number' id='deposito'><input type='button' id='bDepositar' value='Depositar' onclick=DepositarDB('"+nocta+"')>";
+		}
+
+		function establecerConexionRetiro(nocta, cantidad)
+		{
+			xhr.onreadystatechange=obtenerDatos;
+		    xhr.open("GET","controller.jsp?bRetirar=true&nocta="+nocta+"&cantidad="+cantidad,true);
+		    xhr.send(null);
+		}
+
+		function RetirarDB(nocta)
+		{
+			iniciarObjetoXmlHttpRequest();
+			var cantidad = document.getElementById('RETIRO').value;
+			alert(cantidad);
+			//establecerConexionRetiro(nocta, cantidad);
 		}
