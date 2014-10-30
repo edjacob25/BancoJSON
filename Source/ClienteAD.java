@@ -138,7 +138,7 @@ public class ClienteAD
 			statement.close();
 			
 
-			resultado = "Datos capturados: \n"+datos;
+			resultado = "Datos capturados correctamente";
 		}
 		catch(SQLException ioe)
 		{

@@ -5,7 +5,6 @@
 	<head>
 		<script src="js.js"></script>
 		<title>Banco</title>
-		
 	</head>
 
 	<body>
@@ -21,7 +20,12 @@
 		<section class="form">
 				Número de Cuenta: <input type='text' id= 'nocta' value=''> <br>
 				Cliente: <input type='text' id= 'nombre' value=''><br>
-				Tipo de Cuenta: <input type='text' id= 'tipo' value=''><br>
+				Tipo de Cuenta: 
+				<select id='tipo'>
+					<option value='' selected>Selecciona</option>
+					<option value='debito'>Débito</option>
+					<option value='credito'>Crédito</option>
+				</select><br>
 				Saldo: <input type='text' id= 'saldo' value=''><br>
 				<br>
 				<input type='button' id= 'crear' value='Crear Cuenta' onclick="crearCuenta()">
@@ -31,6 +35,9 @@
 				<input type='button' id= 'retiro' value='Retirar' onclick="retirar()">
 				<input type='button' id= 'deposito' value='Depositar' onclick="depositar()">
 		</section>
+
+		<div id="resultado">
+		</div>
 
 	</body>
 </html>

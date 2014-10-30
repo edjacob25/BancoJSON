@@ -6,7 +6,7 @@
     StringTokenizer st = null;
 
     String strJson = "[";
-    if (st1.countTokens > 1) {
+    if (st1.countTokens() > 1) {
     	while(st1.hasMoreTokens())
 	    {
 			st = new StringTokenizer(st1.nextToken(),"_");
@@ -17,10 +17,10 @@
     else
     {
 		st = new StringTokenizer(st1.nextToken(),"_");
-		if(st.counTokens > 1)
-			strJson ="{nocta:'"+st.nextToken()+"', nombre: '"+st.nextToken()+"', tipo:'"+st.nextToken()+"', saldo: '"+st.nextToken()+"'}";
+		if(st.countTokens() > 1)
+			strJson = strJson +"{nocta:'"+st.nextToken()+"', nombre: '"+st.nextToken()+"', tipo:'"+st.nextToken()+"', saldo: '"+st.nextToken()+"'}]";
 		else
-			strJson = "{error:'Hubo un error'}";
+			strJson = strJson + "{message:'"+datos+"'}]";
 	}  
     response.setContentType("text/plain");
     out.println(strJson);
