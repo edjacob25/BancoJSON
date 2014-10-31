@@ -250,7 +250,7 @@ function capturarDatos(op)
 
 		function depositar(nocta, nombre, tipo, saldo)
 		{
-			document.getElementById("campo").innerHTML="<span>Cantidad: </span><input type='number' id='deposito'><input type='button' id='bDepositar' value='Depositar' onclick=DepositarDB('"+nocta+"')>";
+			document.getElementById("campo").innerHTML="<span>Cantidad: </span><input type='number' id='DEPOSITO'><input type='button' id='bDepositar' value='Depositar' onclick=DepositarDB('"+nocta+"')>";
 		}
 
 		function establecerConexionRetiro(nocta, cantidad)
@@ -264,6 +264,21 @@ function capturarDatos(op)
 		{
 			iniciarObjetoXmlHttpRequest();
 			var cantidad = document.getElementById('RETIRO').value;
+			//alert(cantidad);
+			establecerConexionRetiro(nocta, cantidad);
+		}
+
+		function establecerConexionDeposito(nocta, cantidad)
+		{
+			xhr.onreadystatechange=obtenerDatos;
+		    xhr.open("GET","controller.jsp?bDepositar=true&nocta="+nocta+"&cantidad="+cantidad,true);
+		    xhr.send(null);
+		}
+
+		function DepositarDB(nocta)
+		{
+			iniciarObjetoXmlHttpRequest();
+			var cantidad = document.getElementById('DEPOSITO').value;
 			alert(cantidad);
-			//establecerConexionRetiro(nocta, cantidad);
+			establecerConexionDeposito(nocta, cantidad);
 		}
