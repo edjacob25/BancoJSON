@@ -7,6 +7,9 @@
 	<head>
 		<title>Clientazo</title>
 		<script src="js.js"></script>
+		<link rel="stylesheet" type="text/css" href="main.css">
+		<link href='http://fonts.googleapis.com/css?family=Megrim' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
 	</head>
 
 	<body>
@@ -18,6 +21,14 @@
 			String tipo= st.nextToken();
 			int saldo= Integer.parseInt(st.nextToken());
 		%>
+
+		<section class="title">
+		 
+			<h1>BANCO CLIENTAZO</h1>	
+		</section>
+
+		<div class="actualizando"><h2>...Actualizando Datos...</h2></div>
+
 		<div class="table">
 			<table border="1px">
 				<tr>
@@ -37,6 +48,10 @@
 					<td><input type="number" id = 'saldo' value = '<%= saldo %>'placeholder = '<%= saldo %>'></td>
 				</tr>
 			</table>
+			
+		</div>
+
+		<div class="finalBoton">
 			<input type='button' id="bActualizarSaldo" value ='Actualizar' onclick="actualizarSaldo()">
 			<input type='button' id="bRegresar" value ='Regresar' onclick="regresar()">
 		</div>

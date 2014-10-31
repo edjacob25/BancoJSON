@@ -25,6 +25,12 @@ function obtenerDatos()
      	var html="";
      	if (datosJSon[0].nocta != undefined) {
 	      	html = html + "<table border='1px'>";
+	      	html = html + "<tr>";
+	      	html = html + "<td class='header'>Cuenta</td>";
+	      	html = html + "<td class='header'>Nombre</td>";
+	      	html = html + "<td class='header'>Tipo</td>";
+	      	html = html + "<td class='header'>Saldo</td>";
+	      	html = html + "</tr>";
 	      	for(var i=0; i<datosJSon.length; i++)
 	      	{
 	          	html = html + "<tr>";
@@ -57,6 +63,14 @@ function obtenerDatosDireccionado()
      	var html="";
      	if (datosJSon[0].nocta != undefined) {
 	      	html = html + "<table border='1px'>";
+	      	html = html + "<tr>";
+	      	html = html + "<td class='header'>Cuenta</td>";
+	      	html = html + "<td class='header'>Nombre</td>";
+	      	html = html + "<td class='header'>Tipo</td>";
+	      	html = html + "<td class='header'>Saldo</td>";
+	      	html = html + "<td class='header'>Transacción</td>";
+	      	html = html + "<td class='header'>Transacción</td>";
+	      	html = html + "</tr>";
 	      	for(var i=0; i<datosJSon.length; i++)
 	      	{
 	      		nocta = datosJSon[i].nocta;
@@ -245,12 +259,12 @@ function capturarDatos(op)
 		function retirar(nocta, nombre, tipo, saldo)
 		{
 
-			document.getElementById("campo").innerHTML="<span>Cantidad: </span><input type='number' id='RETIRO'><input type='button' id='bRetirar' value='Retirar' onclick= RetirarDB('"+nocta+"')>";
+			document.getElementById("campo").innerHTML="<span>Cantidad: </span><input type='number' id='RETIRO'><br><br><input type='button' id='bRetirar' value='Retirar' onclick= RetirarDB('"+nocta+"')>";
 		}
 
 		function depositar(nocta, nombre, tipo, saldo)
 		{
-			document.getElementById("campo").innerHTML="<span>Cantidad: </span><input type='number' id='DEPOSITO'><input type='button' id='bDepositar' value='Depositar' onclick=DepositarDB('"+nocta+"')>";
+			document.getElementById("campo").innerHTML="<span>Cantidad: </span><input type='number' id='DEPOSITO'><br><br><input type='button' id='bDepositar' value='Depositar' onclick=DepositarDB('"+nocta+"')>";
 		}
 
 		function establecerConexionRetiro(nocta, cantidad)
