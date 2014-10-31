@@ -4,6 +4,7 @@
 <html lang ='es'>
 	<head>
 		<script src="js.js"></script>
+		<link rel="stylesheet" type="text/css" href="main.css">
 		<title>Clientazo</title>
 	</head>
 
