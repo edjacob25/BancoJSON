@@ -42,7 +42,7 @@
 	{
 		String datos = request.getParameter("datos");
 		String respuesta = bancoad.consultarNocta(datos);
-
+		if(respuesta.equals("")) respuesta="Tu consulta no generó resultados";
 	
 	%>
 			
@@ -55,8 +55,8 @@
 	{
 		String datos = request.getParameter("datos");
 		String respuesta = bancoad.consultarTipo(datos);
+		if(respuesta.equals("")) respuesta="Tu consulta no generó resultados";
 
-	
 	%>
 			
 			<jsp:forward page="toJSON.jsp">
@@ -89,6 +89,19 @@
 		String nocta = request.getParameter("nocta");
 		int cantidad = Integer.parseInt(request.getParameter("cantidad"));
 		String respuesta = bancoad.retirar(nocta,cantidad);
+
+		%>
+			
+			<jsp:forward page="toJSON.jsp">
+				<jsp:param name="datos" value="<%= respuesta %>"/>
+			</jsp:forward>
+		<%
+	}
+	if(request.getParameter("bDepositar")!=null)
+	{
+		String nocta = request.getParameter("nocta");
+		int cantidad = Integer.parseInt(request.getParameter("cantidad"));
+		String respuesta = bancoad.depositar(nocta,cantidad);
 
 		%>
 			

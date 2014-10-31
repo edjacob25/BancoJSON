@@ -38,7 +38,7 @@
 				</tr>
 			</table>
 			<input type='button' id="bActualizarSaldo" value ='Actualizar' onclick="actualizarSaldo()">
-			<input type='button' id="bRegresar" value ='Regresar' onclick="cancelar()">
+			<input type='button' id="bRegresar" value ='Regresar' onclick="regresar()">
 		</div>
 
 		<div id ="resultado">

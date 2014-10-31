@@ -75,7 +75,7 @@ public class ClienteAD
 		catch(SQLException ioe)
 		{
 			System.out.println("Error: "+ioe);
-			resultado = "Error: "+ioe;
+			resultado = "Error de la DB ";
 		}
 
 		return resultado;
@@ -114,7 +114,7 @@ public class ClienteAD
 			catch(SQLException ioe)
 			{
 				System.out.println("Error: "+ioe);
-				resultado = "Error: "+ioe;
+				resultado = "Error de la DB";
 			}
 		}	
 
@@ -143,7 +143,7 @@ public class ClienteAD
 		catch(SQLException ioe)
 		{
 			System.out.println("Error: "+ioe);
-			resultado = "Error: "+ioe;
+			resultado = "Error, es probable que la cuenta ya exista";
 		}
 
 
@@ -182,7 +182,7 @@ public class ClienteAD
 		catch(SQLException ioe)
 		{
 			System.out.println("Error: "+ioe);
-			datos = "Error "+ioe;
+			datos = "";
 		}
 
 		return datos;
@@ -204,6 +204,7 @@ public class ClienteAD
 			query = "SELECT * FROM `banco`.`clientes` WHERE `nocta` = "+nocta;
 			resultado = statement.executeQuery(query);
 			//2.2 Procesar	
+
 			while(resultado.next())
 			{
 				clientedp.setNocta(resultado.getString("nocta"));
@@ -220,9 +221,9 @@ public class ClienteAD
 		catch(SQLException ioe)
 		{
 			System.out.println("Error: "+ioe);
-			datos = "Error "+ioe;
+			datos = "Error, no existe esa cuenta ";
 		}
-
+		System.out.println(datos);
 		return datos;
 	}
 
@@ -247,7 +248,7 @@ public class ClienteAD
 		catch(SQLException ioe)
 		{
 			System.out.println("Error: "+ioe);
-			resultado = "Error: "+ioe;
+			resultado = "Error con el numero de cuenta";
 		}
 
 		return resultado;
@@ -286,7 +287,7 @@ public class ClienteAD
 		catch(SQLException ioe)
 		{
 			System.out.println("Error: "+ioe);
-			datos = "Error "+ioe;
+			datos = "No hay resultados";
 		}
 
 		return datos;
