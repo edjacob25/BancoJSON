@@ -47,6 +47,29 @@ public class ClienteAD
 		}
 	}
 
+	public String transferir(String nocta, int cantidad, String cuenta)
+	{ 
+		String respuesta = "";
+		if (consultarNocta(cuenta)=="") {
+			respuesta = "..La cuenta receptora no se encontro";
+		}
+		else
+		{
+			respuesta=retirar(nocta, cantidad);
+			if (respuesta.equals("No tienes fondos suficientes")) {
+				//pass
+			}
+			else
+			{
+				respuesta= depositar(cuenta, cantidad);
+				respuesta= "...La transferencia se realizo correctamente...";
+			}
+			
+		}
+		
+		return respuesta;
+	}
+
 	public String depositar(String cuenta, int cantidad)
 	{
 		StringTokenizer st = new StringTokenizer(consultarNocta(cuenta),"_");
@@ -91,6 +114,7 @@ public class ClienteAD
 		int saldo = Integer.parseInt(st.nextToken());
 		String resultado="";
 		String query= "";
+		boolean valido=true;
 		if (tipoCuenta.equals("HIPOTECA"))
 			resultado = "No puedes retirar de una cuenta de HIPOTECA";
 		else
@@ -98,23 +122,37 @@ public class ClienteAD
 			if (tipoCuenta.equals("CREDITO"))
 				saldo = saldo + cantidad;
 			else
-				saldo = saldo - cantidad;
-			try
 			{
-				// 1. Abrir	el archivo para	escribir o guardar o almacenar los datos
-				statement = conexion.createStatement();
-				// 2. Escribir,	guardar	o almacenar	los	datos
-				query = "UPDATE `banco`.`clientes` SET saldo ='"+ saldo + "' WHERE nocta ="+cuenta +";";
-				statement.executeUpdate(query);
-				// 3. Cerrar el	archivo
-				statement.close();
-
-				resultado = "Nuevo saldo: "+saldo;
+				if(saldo<cantidad)
+				{
+					resultado = "No tienes fondos suficientes";
+					valido = false;
+				}
+				else
+				{
+					saldo = saldo - cantidad;
+				}
 			}
-			catch(SQLException ioe)
-			{
-				System.out.println("Error: "+ioe);
-				resultado = "Error de la DB";
+			if (valido) {
+				
+			
+				try
+				{
+					// 1. Abrir	el archivo para	escribir o guardar o almacenar los datos
+					statement = conexion.createStatement();
+					// 2. Escribir,	guardar	o almacenar	los	datos
+					query = "UPDATE `banco`.`clientes` SET saldo ='"+ saldo + "' WHERE nocta ="+cuenta +";";
+					statement.executeUpdate(query);
+					// 3. Cerrar el	archivo
+					statement.close();
+
+					resultado = "Nuevo saldo: "+saldo;
+				}
+				catch(SQLException ioe)
+				{
+					System.out.println("Error: "+ioe);
+					resultado = "Error de la DB";
+				}
 			}
 		}	
 

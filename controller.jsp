@@ -110,4 +110,19 @@
 			</jsp:forward>
 		<%
 	}
+
+	if(request.getParameter("bTransferir")!=null)
+	{
+		String nocta = request.getParameter("nocta");
+		int cantidad = Integer.parseInt(request.getParameter("cantidad"));
+		String cuenta = request.getParameter("cuenta");
+		String respuesta = bancoad.transferir(nocta,cantidad,cuenta);
+
+		%>
+			
+			<jsp:forward page="toJSON.jsp">
+				<jsp:param name="datos" value="<%= respuesta %>"/>
+			</jsp:forward>
+		<%
+	}
 	%>

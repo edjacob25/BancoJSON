@@ -70,6 +70,8 @@ function obtenerDatosDireccionado()
 	      	html = html + "<td class='header'>Saldo</td>";
 	      	html = html + "<td class='header'>Transacción</td>";
 	      	html = html + "<td class='header'>Transacción</td>";
+	      	if (datosJSon[0].tipo=="AHORRO"  || datosJSon[0].tipo=="INVERSION")
+	      	html = html + "<td class='header'>Transacción</td>";
 	      	html = html + "</tr>";
 	      	for(var i=0; i<datosJSon.length; i++)
 	      	{
@@ -86,8 +88,10 @@ function obtenerDatosDireccionado()
 	          		html = html + "<td>"+nombre+"</td>";
 	          		html = html + "<td>"+tipo+"</td>";
 	          		html = html + "<td>"+saldo+"</td>";
-	          		html = html + "<td><input type='button' id= 'retiro' value='Retirar' onclick=retirar('"+nocta+"','"+nombre+"','"+tipo+"','"+saldo+"')></td>";
-	          		html = html + "<td><input type='button' id= 'deposito' value='Depositar' onclick=depositar('"+nocta+"','"+nombre+"','"+tipo+"','"+saldo+"')></td>";
+	          		html = html + "<td><input type='button' id= 'retiro' value='Retirar' onclick=retirar('"+nocta+"');></td>";
+	          		html = html + "<td><input type='button' id= 'deposito' value='Depositar' onclick=depositar('"+nocta+"');></td>";
+	          		if (tipo=="AHORRO" || tipo == "INVERSION")
+	          			html = html + "<td><input type='button' id= 'transferencia' value='Transferencia' onclick=transferencia('"+nocta+"');></td>";
 	          		
 				
 	          	html = html + "</tr>";
@@ -256,15 +260,15 @@ function capturarDatos(op)
 			window.location.assign("view.jsp");
 		}
 
-		function retirar(nocta, nombre, tipo, saldo)
+		function retirar(nocta)
 		{
-
-			document.getElementById("campo").innerHTML="<span>Cantidad: </span><input type='number' id='RETIRO'><br><br><input type='button' id='bRetirar' value='Retirar' onclick= RetirarDB('"+nocta+"')>";
+			document.getElementById("campo").innerHTML="<span>Cantidad: </span><input type='number' id='RETIRO'><br><br><input type='button' id='bRetirar' value='Retirar' onclick= RetirarDB('"+nocta+"');>";
+		
 		}
 
-		function depositar(nocta, nombre, tipo, saldo)
+		function depositar(nocta)
 		{
-			document.getElementById("campo").innerHTML="<span>Cantidad: </span><input type='number' id='DEPOSITO'><br><br><input type='button' id='bDepositar' value='Depositar' onclick=DepositarDB('"+nocta+"')>";
+			document.getElementById("campo").innerHTML="<span>Cantidad: </span><input type='number' id='DEPOSITO'><br><br><input type='button' id='bDepositar' value='Depositar' onclick=DepositarDB('"+nocta+"');>";
 		}
 
 		function establecerConexionRetiro(nocta, cantidad)
@@ -293,6 +297,26 @@ function capturarDatos(op)
 		{
 			iniciarObjetoXmlHttpRequest();
 			var cantidad = document.getElementById('DEPOSITO').value;
-			alert(cantidad);
 			establecerConexionDeposito(nocta, cantidad);
+		}
+
+		function transferencia(nocta)
+		{
+			document.getElementById("campo").innerHTML="<span>Cantidad: </span><input type='number' id='TRANSFERENCIA'><br><br><span>Cuenta: </span><input type='number' id='CUENTATRANS'><br><br><input type='button' id='bTransferir' value='Transferir' onclick= TransferirDB('"+nocta+"');>";
+		}
+
+		function TransferirDB(nocta)
+		{
+			iniciarObjetoXmlHttpRequest();
+			var cantidad = document.getElementById('TRANSFERENCIA').value;
+			var cuentaRecibe = document.getElementById('CUENTATRANS').value;
+			establecerConexionTransferencia(nocta, cantidad,cuentaRecibe);
+		}
+
+		function establecerConexionTransferencia(nocta, cantidad, cuenta)
+		{
+
+			xhr.onreadystatechange=obtenerDatos;
+		    xhr.open("GET","controller.jsp?bTransferir=true&nocta="+nocta+"&cantidad="+cantidad+"&cuenta="+cuenta,true);
+		    xhr.send(null);
 		}
